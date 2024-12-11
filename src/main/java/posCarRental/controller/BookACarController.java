@@ -9,15 +9,16 @@ import posCarRental.dto.SearchCarDto;
 import posCarRental.service.IBookACarService;
 
 import java.util.List;
+import static posCarRental.constants.GeneralConstants.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 public class BookACarController {
 
     @Autowired
     private IBookACarService bookACarService;
 
-    @PostMapping("/car/bookACar")
+    @PostMapping(CAR + BOOK_A_CAR)
     public ResponseEntity<?> bookACar(@RequestBody BookACarDto bookACarDto){
         boolean success = bookACarService.bookACar(bookACarDto);
         if (success) {
@@ -26,7 +27,7 @@ public class BookACarController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/car/bookACar/{userId}")
+    @GetMapping(CAR + GET_CAR_BOOKINGS_BY_USER_ID)
     public ResponseEntity<List<BookACarDto>> getBookingsByUserId(@PathVariable Long userId){
         try {
             return ResponseEntity.ok(bookACarService.getBookingsByUserId(userId));
@@ -35,12 +36,13 @@ public class BookACarController {
         }
     }
 
-    @GetMapping("/car/bookingsCar")
+    @GetMapping(CAR + GET_ALL_BOOKINGS_CAR)
     public ResponseEntity<List<BookACarDto>> findAllBookings(){
         return ResponseEntity.ok(bookACarService.findAllBookings());
     }
 
-    @GetMapping("/car/bookingsCar/{bookingId}/{status}")
+    //APROBAR LA RESERVA: CAMBIAR ESTADO DE RESERVA
+    @GetMapping(CAR + CHANGE_BY_BOOKING_ID_AND_STATUS)
     public ResponseEntity<?> changeBookingStatus(@PathVariable Long bookingId, @PathVariable String status){
         boolean success = bookACarService.changeBookingStatus(bookingId, status);
         if (success) {

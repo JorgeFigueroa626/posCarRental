@@ -41,13 +41,10 @@ public class CarServiceImpl implements ICarService {
         try {
             Car car = new Car();
             car.setName(carDto.getName());
-            //car.setBrand(carDto.getBrand());
             car.setColor(carDto.getColor());
             car.setPrice(carDto.getPrice());
             car.setYear(carDto.getYear());
-            //car.setType(carDto.getType());
             car.setDescription(carDto.getDescription());
-            //car.setTransmission(carDto.getTransmission());
             car.setImage(carDto.getImage().getBytes());
 
             Brand brand = brandRepository.findById(carDto.getBrandId()).orElseThrow();
@@ -63,8 +60,36 @@ public class CarServiceImpl implements ICarService {
         }catch (Exception e){
             return false;
         }
-
     }
+
+
+    /*
+    @Override
+    public boolean createCar(CarDto carDto) throws Exception {
+        try {
+            Brand brand = brandRepository.findById(carDto.getBrandId()).orElseThrow();
+            Fuel fuel = fuelRepository.findById(carDto.getFuelId()).orElseThrow();
+            Transmission transmission = transmissionRepository.findById(carDto.getTransmissionId()).orElseThrow();
+            Car car = Car.builder()
+                    .name(carDto.getName())
+                    .color(carDto.getColor())
+                    .price(carDto.getPrice())
+                    .year(carDto.getYear())
+                    .description(carDto.getDescription())
+                    .image(carDto.getImage().getBytes())
+                    .brand(brand)
+                    .fuel(fuel)
+                    .transmission(transmission)
+                    .build();
+            carRepository.save(car);
+            return true;
+            }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+     */
 
     @Override
     public List<CarDto> findAllCars() {
@@ -93,10 +118,7 @@ public class CarServiceImpl implements ICarService {
                     existingCar.setImage(carDto.getImage().getBytes());
                 }
                 existingCar.setName(carDto.getName());
-                //existingCar.setBrand(carDto.getBrand());
                 existingCar.setYear(carDto.getYear());
-                //existingCar.setType(carDto.getType());
-                //existingCar.setTransmission(carDto.getTransmission());
                 existingCar.setColor(carDto.getColor());
                 existingCar.setPrice(carDto.getPrice());
                 existingCar.setDescription(carDto.getDescription());

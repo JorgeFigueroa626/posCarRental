@@ -2,6 +2,7 @@ package posCarRental.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import posCarRental.dto.CarDto;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+//@Builder
 @Table(name = "cars")
 public class Car {
 
@@ -18,15 +20,9 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //private String brand;
-
     private String color;
 
     private String name;
-
-    //private String type;
-
-    //private String transmission;
 
     @Column(length = 1000)
     private String description;
@@ -56,13 +52,10 @@ public class Car {
         CarDto carDto = new CarDto();
         carDto.setId(id);
         carDto.setName(name);
-        //carDto.setBrand(brand);
         carDto.setColor(color);
-        //carDto.setType(type);
         carDto.setPrice(price);
         carDto.setYear(year);
         carDto.setDescription(description);
-        //carDto.setTransmission(transmission);
         carDto.setReturnedImage(image);
         carDto.setBrandId(brand.getId());
         carDto.setFuelId(fuel.getId());

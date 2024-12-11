@@ -7,15 +7,16 @@ import posCarRental.entity.Rol;
 import posCarRental.service.IRolService;
 
 import java.util.List;
+import static posCarRental.constants.GeneralConstants.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 public class RolController {
 
     @Autowired
     private IRolService rolService;
 
-    @PostMapping("/rol")
+    @PostMapping(ROL)
     public ResponseEntity<?> create(@RequestBody Rol rol){
         try {
             return ResponseEntity.ok(rolService.saveRol(rol));
@@ -24,7 +25,7 @@ public class RolController {
         }
     }
 
-    @GetMapping("/rol/{rolId}")
+    @GetMapping(GET_BY_ROL_ID)
     public ResponseEntity<?> getByRolId(@PathVariable Long rolId){
         try {
             return ResponseEntity.ok(rolService.getByRoleId(rolId));
@@ -33,7 +34,7 @@ public class RolController {
         }
     }
 
-    @GetMapping("/rol")
+    @GetMapping(ROL)
     public ResponseEntity<List<?>> findAllRol(){
         try {
             return ResponseEntity.ok(rolService.findAllRoles());

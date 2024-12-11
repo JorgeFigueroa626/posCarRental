@@ -7,15 +7,16 @@ import posCarRental.entity.Fuel;
 import posCarRental.service.IFuelService;
 
 import java.util.List;
+import static posCarRental.constants.GeneralConstants.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 public class FuelController {
 
     @Autowired
     private IFuelService fuelService;
 
-    @PostMapping("/fuel")
+    @PostMapping(FUEL)
     public ResponseEntity<?> create(@RequestBody Fuel fuel){
         try {
             return ResponseEntity.ok(fuelService.createFuel(fuel));
@@ -24,7 +25,7 @@ public class FuelController {
         }
     }
 
-    @GetMapping("/fuel")
+    @GetMapping(FUELS)
     public ResponseEntity<?> findAllFuels(){
         try {
             return ResponseEntity.ok(fuelService.findAllFuel());
@@ -33,10 +34,10 @@ public class FuelController {
         }
     }
 
-    @GetMapping("/fuel/{fuelId}")
-    public ResponseEntity<?> getByFuelId(@PathVariable Long fuelId){
+    @GetMapping(GET_BY_FUEL_ID)
+    public ResponseEntity<?> getByFuelId(@PathVariable Long id){
         try {
-            return ResponseEntity.ok(fuelService.getByFuelId(fuelId));
+            return ResponseEntity.ok(fuelService.getByFuelId(id));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

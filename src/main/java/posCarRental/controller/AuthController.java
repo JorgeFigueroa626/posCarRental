@@ -24,9 +24,10 @@ import posCarRental.security.UserDetailsServiceImpl;
 import posCarRental.service.IAuthService;
 
 import java.util.Optional;
+import static posCarRental.constants.GeneralConstants.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(AUTH)
 public class AuthController {
 
     @Autowired
@@ -45,7 +46,7 @@ public class AuthController {
     private IUserRepository userRepository;
 
     //REGISTER USER
-    @PostMapping("/signup")
+    @PostMapping(SIGNUP)
     public ResponseEntity<?> createCustomer(@RequestBody SignupRequestDto requestDto){
         if (authService.verificationEmail(requestDto.getEmail())) {
             return new ResponseEntity<>("Customer already exist with this email", HttpStatus.NOT_ACCEPTABLE); 
@@ -58,7 +59,7 @@ public class AuthController {
     }
 
     //LOGIN
-    @PostMapping("/login")
+    @PostMapping(LOGIN)
     public AuthResponseDto createAuthentication(@RequestBody AuthRequestDto requestDto) throws BadCredentialsException, DisabledException, UsernameNotFoundException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));

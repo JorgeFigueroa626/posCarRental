@@ -10,14 +10,16 @@ import posCarRental.service.ITransmissionService;
 
 import java.util.List;
 
+import static posCarRental.constants.GeneralConstants.*;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 public class TransmissionController {
 
     @Autowired
     private ITransmissionService transmissionService;
 
-    @PostMapping("/transmission")
+    @PostMapping(TRANSMISSION)
     public ResponseEntity<?> create(@RequestBody Transmission transmission){
         try {
             return ResponseEntity.ok(transmissionService.createTransmission(transmission));
@@ -26,7 +28,7 @@ public class TransmissionController {
         }
     }
 
-    @GetMapping("/transmission")
+    @GetMapping(TRANSMISSIONS)
     public ResponseEntity<?> findAllTransmissions(){
         try {
             return ResponseEntity.ok(transmissionService.findAllTransmissions());
@@ -35,10 +37,10 @@ public class TransmissionController {
         }
     }
 
-    @GetMapping("/transmission/{transmissionId}")
-    public ResponseEntity<?> getByTransmissionId(@PathVariable Long transmissionId){
+    @GetMapping(GET_BY_TRANSMISSION_ID)
+    public ResponseEntity<?> getByTransmissionId(@PathVariable Long id){
         try {
-            return ResponseEntity.ok(transmissionService.getByTransmissionId(transmissionId));
+            return ResponseEntity.ok(transmissionService.getByTransmissionId(id));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

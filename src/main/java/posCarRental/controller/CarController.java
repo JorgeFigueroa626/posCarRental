@@ -11,14 +11,16 @@ import posCarRental.service.ICarService;
 
 import java.io.IOException;
 
+import static posCarRental.constants.GeneralConstants.*;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 public class CarController {
 
     @Autowired
     private ICarService carService;
 
-    @PostMapping("/car")
+    @PostMapping(CAR)
     public ResponseEntity<?> posCar(@ModelAttribute CarDto requestDto) throws Exception {
         boolean success = carService.posCar(requestDto);
         if (success) {
@@ -28,24 +30,24 @@ public class CarController {
         }
     }
 
-    @GetMapping("/car")
+    @GetMapping(GET_ALL_CARS)
     public ResponseEntity<?> findAllCars(){
         return ResponseEntity.ok(carService.findAllCars());
     }
 
-    @GetMapping("/car/{carId}")
-    public ResponseEntity<?> getByCarId(@PathVariable Long carId){
-        CarDto carDtoId = carService.getByCarId(carId);
+    @GetMapping(GET_BY_CAR_ID)
+    public ResponseEntity<?> getByCarId(@PathVariable Long id){
+        CarDto carDtoId = carService.getByCarId(id);
         if (carDtoId != null) {
             return ResponseEntity.ok(carDtoId);
         }
         return ResponseEntity.badRequest().build();
     }
 
-    @PutMapping("/car/{carId}")
-    public ResponseEntity<?> updateCar(@PathVariable Long carId, @ModelAttribute CarDto requestDto) throws Exception {
+    @PutMapping(GET_BY_CAR_ID)
+    public ResponseEntity<?> updateCar(@PathVariable Long id, @ModelAttribute CarDto requestDto) throws Exception {
         try {
-            boolean upate = carService.updateByCarId(carId, requestDto);
+            boolean upate = carService.updateByCarId(id, requestDto);
             if (upate) {
                 return ResponseEntity.status(HttpStatus.OK).build();
             }
@@ -55,16 +57,16 @@ public class CarController {
         }
     }
 
-    @DeleteMapping("/car/{carId}")
-    public  ResponseEntity<Void> delete(@PathVariable Long carId) throws CarNotFoundException {
-        boolean success = carService.deleteByCarId(carId);
+    @DeleteMapping(GET_BY_CAR_ID)
+    public  ResponseEntity<Void> delete(@PathVariable Long id) throws CarNotFoundException {
+        boolean success = carService.deleteByCarId(id);
         if(success) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/car/search")
+    @PostMapping(SEARCH_BY_CAR)
     public ResponseEntity<?> searchCar(@RequestBody SearchCarDto searchCarDto){
         try {
             return ResponseEntity.ok(carService.searchCar(searchCarDto));

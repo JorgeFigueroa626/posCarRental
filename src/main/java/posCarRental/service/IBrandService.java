@@ -1,14 +1,21 @@
 package posCarRental.service;
 
+import posCarRental.dto.BrandDto;
 import posCarRental.entity.Brand;
 
 import java.util.List;
 
 public interface IBrandService {
 
-    Brand createBrand(Brand brand);
+    BrandDto createBrand(BrandDto brandDto);
 
-    List<Brand> findAllBrands();
+    BrandDto getByBrandId(Long Id);
 
-    Brand getByBrandId(Long id);
+    List<BrandDto> findAllBrands();
+
+    List<BrandDto> findAllsBrands(String name, Integer page, Integer size);
+
+    BrandDto updateBrand(Long id, BrandDto brandDto);
+
+    void deleteByBrandId(Long id);
 }

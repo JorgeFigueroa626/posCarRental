@@ -11,15 +11,9 @@ public class CarDto {
 
     private Long id;
 
-    //private String brand;
-
     private String color;
 
     private String name;
-
-    //private String type;
-
-    //private String transmission;
 
     private String description;
 
