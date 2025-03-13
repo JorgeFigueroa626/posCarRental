@@ -54,7 +54,8 @@ public class AuthServiceImpl implements IAuthService {
         user.setStatus(UserStatus.ACTIVO);
 
         // Obtener el rol "customer" de la base de datos
-        Rol customerRole = rolRepository.findByName("CUSTOMER");
+        //Rol customerRole = rolRepository.findByName("CUSTOMER");
+        Rol customerRole = rolRepository.findById(requestDto.getRolId()).get();
         if (customerRole == null) {
             // Si no existe el rol "customer", lo creamos (solo si es necesario)
             customerRole = new Rol();

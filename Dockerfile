@@ -1,4 +1,6 @@
-FROM ubuntu:latest
-LABEL authors="user"
-
-ENTRYPOINT ["top", "-b"]
+# IMAGEN MODELO
+FROM openjdk:17
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+RUN javac Main.java
+CMD ["java", "Main"]
