@@ -3,6 +3,7 @@ package posCarRental.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import posCarRental.dto.RolRequestDto;
 import posCarRental.entity.Rol;
 import posCarRental.service.IRolService;
 
@@ -17,7 +18,7 @@ public class RolController {
     private IRolService rolService;
 
     @PostMapping(ROL)
-    public ResponseEntity<?> create(@RequestBody Rol rol){
+    public ResponseEntity<?> create(@ModelAttribute RolRequestDto rol){
         try {
             return ResponseEntity.ok(rolService.saveRol(rol));
         }catch (Exception e){
