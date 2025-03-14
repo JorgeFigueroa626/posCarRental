@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import posCarRental.dto.RolRequestDto;
 import posCarRental.entity.Rol;
+import posCarRental.exception.CarNotFoundException;
 import posCarRental.repository.IRolRepository;
 import posCarRental.service.IFirebaseStorageService;
 import posCarRental.service.IRolService;
@@ -26,16 +27,21 @@ public class RolServiceImpl implements IRolService {
     private IFirebaseStorageService firebaseStorageService;
 
     @Override
-    public Rol saveRol(RolRequestDto requestDto) throws IOException {
-        Rol rol = new Rol();
-        rol.setName(requestDto.getName());
+    public Rol saveRol(RolRequestDto requestDto) throws CarNotFoundException, IOException {
+        try {
+            Rol rol = new Rol();
+            rol.setName(requestDto.getName());
 
-        // Subir la imagen a Firebase
-        String imageUrl = firebaseStorageService.uploadImage(requestDto.getImage());
+            // Subir la imagen a Firebase
+            String imageUrl = firebaseStorageService.uploadImage(requestDto.getImage());
 
-        // Guardar la URL en la base de datos
-        rol.setImage(imageUrl);
-        return rolRepository.save(rol);
+            // Guardar la URL en la base de datos
+            rol.setImage(imageUrl);
+            return rolRepository.save(rol);
+
+        }catch (Exception e){
+            throw  new CarNotFoundException(e.getMessage());
+        }
     }
 
     @Override

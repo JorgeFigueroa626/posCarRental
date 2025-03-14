@@ -17,7 +17,7 @@ public class FirebaseStorageService implements IFirebaseStorageService {
     @Value("${firebase.storage.file.path.base}")
     private String FIREBASE_STORAGE;
 
-    private static final String BUCKET_NAME = "tu-proyecto.appspot.com";
+    private static final String BUCKET_NAME = "web-ecommerce-dcdaa.appspot.com";
 
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
@@ -25,7 +25,8 @@ public class FirebaseStorageService implements IFirebaseStorageService {
         Bucket bucket = StorageClient.getInstance().bucket(BUCKET_NAME);
 
         // Generar un nombre único para la imagen
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        //String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
         // Subir la imagen al bucket
         Blob blob = bucket.create("image/" + fileName, file.getBytes(), file.getContentType());

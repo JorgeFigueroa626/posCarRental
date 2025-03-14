@@ -11,14 +11,17 @@ import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-//@Configuration
+@Configuration
 public class FirebaseConfig {
 
-    @Value("${firebase.file.storage.path.base}")
-    private String FIREBASE_STORAGE;
+    //@Value("${firebase.file.storage.path.base}")
+    //private String FIREBASE_STORAGE;
 
-    //@PostConstruct
+
+
+
     //@Bean
+    @PostConstruct
     public void init() {
         try {
             FileInputStream serviceAccount =
@@ -26,7 +29,7 @@ public class FirebaseConfig {
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setStorageBucket("tu-proyecto.appspot.com") // Reemplaza con el bucket de tu Firebase
+                    .setStorageBucket("web-ecommerce-dcdaa.appspot.com") // Reemplaza con el bucket de tu Firebase
                     .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
